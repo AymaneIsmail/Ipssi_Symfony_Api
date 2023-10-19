@@ -23,7 +23,6 @@ class Produit
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['produit:read', 'utilisateur:read', 'commande:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]

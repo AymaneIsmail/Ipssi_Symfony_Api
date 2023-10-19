@@ -4,11 +4,11 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CommandeRepository;
-use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use DateTimeImmutable;
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
 #[ApiResource(
@@ -28,12 +28,12 @@ class Commande
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['commande:read', 'utilisateur:read'])]
+    #[Groups(['commande:read', 'commande:write:put'])]
     private ?DateTimeImmutable $dateCommande = null;
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
-    #[Groups('commande:write')]
-    private ?utilisateur $utilisateur = null;
+    #[Groups(['commande:read', 'commande:write'])]
+    private ?Utilisateur $utilisateur = null;
 
     #[ORM\OneToMany(mappedBy: 'commande', targetEntity: DetailCommande::class)]
     #[Groups(['commande:read', 'utilisateur:read'])]
@@ -41,25 +41,13 @@ class Commande
 
     public function __construct()
     {
-        $this->detailCommandes = new ArrayCollection();
         $this->dateCommande = new DateTimeImmutable();
+        $this->detailCommandes = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getDateCommande(): ?DateTimeImmutable
-    {
-        return $this->dateCommande;
-    }
-
-    public function setDateCommande(DateTimeImmutable $dateCommande): static
-    {
-        $this->dateCommande = $dateCommande;
-
-        return $this;
     }
 
     public function getUtilisateur(): ?Utilisateur

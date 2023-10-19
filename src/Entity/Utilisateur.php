@@ -11,6 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[ApiResource(
+
     normalizationContext: [
         'groups' => ['utilisateur:read']
     ],
@@ -25,7 +26,6 @@ class Utilisateur
     #[ORM\Column]
     #[Groups(['utilisateur:read', 'commande:write', 'commande:read'])]
     private ?int $id = null;
-
 
     #[ORM\Column(length: 255)]
     #[Groups(['utilisateur:read', 'utilisateur:write', 'commande:read'])]
