@@ -23,19 +23,18 @@ class Commande
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['commande:read'])]
+    #[Groups(['commande:read', 'utilisateur:read'])]
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['commande:read'])]
+    #[Groups(['commande:read', 'utilisateur:read'])]
     private ?\DateTimeImmutable $dateCommande = null;
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
-    #[Groups(['commande:write'])]
     private ?utilisateur $utilisateur = null;
 
     #[ORM\OneToMany(mappedBy: 'commande', targetEntity: DetailCommande::class)]
-    #[Groups(['commande:read'])]
+    #[Groups(['commande:read', 'utilisateur:read'])]
     private Collection $detailCommandes;
 
     public function __construct()

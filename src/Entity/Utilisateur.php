@@ -24,27 +24,28 @@ class Utilisateur
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['utilisateur:read'])]
+    #[Groups(['utilisateur:read', 'commande:write', 'commande:read'])]
     private ?int $id = null;
 
 
     #[ORM\Column(length: 255)]
-    #[Groups(['utilisateur:read','utilisateur:write'])]
+    #[Groups(['utilisateur:read','utilisateur:write', 'commande:read'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['utilisateur:read','utilisateur:write'])]
+    #[Groups(['utilisateur:read','utilisateur:write', 'commande:read'])]
     private ?string $prenom = null;
 
     #[ORM\Column]
-    #[Groups(['utilisateur:read','utilisateur:write'])]
+    #[Groups(['utilisateur:read','utilisateur:write', 'commande:read'])]
     private ?int $age = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['utilisateur:read','utilisateur:write'])]
+    #[Groups(['utilisateur:read','utilisateur:write', 'commande:read'])]
     private ?string $email = null;
 
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Commande::class)]
+    #[Groups(['utilisateur:read'])]
     private Collection $commandes;
 
     public function __construct()
