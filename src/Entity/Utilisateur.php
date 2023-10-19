@@ -2,30 +2,46 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\UtilisateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
+#[ApiResource(
+    normalizationContext: [
+        'groups' => ['utilisateur:read']
+    ],
+    denormalizationContext: [
+        'groups' => ['utilisateur:write']
+    ],
+)]
 
 class Utilisateur
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['utilisateur:read'])]
     private ?int $id = null;
 
+
     #[ORM\Column(length: 255)]
+    #[Groups(['utilisateur:read','utilisateur:write'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['utilisateur:read','utilisateur:write'])]
     private ?string $prenom = null;
 
     #[ORM\Column]
+    #[Groups(['utilisateur:read','utilisateur:write'])]
     private ?int $age = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['utilisateur:read','utilisateur:write'])]
     private ?string $email = null;
 
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Commande::class)]
