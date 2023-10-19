@@ -2,26 +2,40 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CommandeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CommandeRepository::class)]
+#[ApiResource(
+    normalizationContext: [
+        'groups' => ['commande:read']
+    ],
+    denormalizationContext: [
+        'groups' => ['commande:write']
+    ],
+)]
 class Commande
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['commande:read'])]
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(['commande:read'])]
     private ?\DateTimeImmutable $dateCommande = null;
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
+    #[Groups(['commande:write'])]
     private ?utilisateur $utilisateur = null;
 
     #[ORM\OneToMany(mappedBy: 'commande', targetEntity: DetailCommande::class)]
+    #[Groups(['commande:read'])]
     private Collection $detailCommandes;
 
     public function __construct()
