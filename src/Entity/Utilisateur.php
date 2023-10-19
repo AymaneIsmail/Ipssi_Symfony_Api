@@ -18,7 +18,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
         'groups' => ['utilisateur:write']
     ],
 )]
-
 class Utilisateur
 {
     #[ORM\Id]
@@ -29,19 +28,19 @@ class Utilisateur
 
 
     #[ORM\Column(length: 255)]
-    #[Groups(['utilisateur:read','utilisateur:write', 'commande:read'])]
+    #[Groups(['utilisateur:read', 'utilisateur:write', 'commande:read'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['utilisateur:read','utilisateur:write', 'commande:read'])]
+    #[Groups(['utilisateur:read', 'utilisateur:write', 'commande:read'])]
     private ?string $prenom = null;
 
     #[ORM\Column]
-    #[Groups(['utilisateur:read','utilisateur:write', 'commande:read'])]
+    #[Groups(['utilisateur:read', 'utilisateur:write', 'commande:read'])]
     private ?int $age = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['utilisateur:read','utilisateur:write', 'commande:read'])]
+    #[Groups(['utilisateur:read', 'utilisateur:write', 'commande:read'])]
     private ?string $email = null;
 
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Commande::class)]
