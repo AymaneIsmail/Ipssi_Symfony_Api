@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\DetailCommandeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DetailCommandeRepository::class)]
+#[ApiResource]
 class DetailCommande
 {
     #[ORM\Id]

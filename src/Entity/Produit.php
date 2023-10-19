@@ -2,26 +2,40 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProduitRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
+#[ApiResource(
+    normalizationContext: [
+        'groups' => ['produit:read']
+    ],
+    denormalizationContext: [
+        'groups' => ['produit:write']
+    ]
+)]
 class Produit
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['produit:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['produit:read', 'produit:write'])]
     private ?string $nomProduit = null;
 
     #[ORM\Column]
+    #[Groups(['produit:read', 'produit:write'])]
     private ?int $prix = null;
 
     #[ORM\Column]
+    #[Groups(['produit:read', 'produit:write'])]
     private ?int $stock = null;
 
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: DetailCommande::class)]
