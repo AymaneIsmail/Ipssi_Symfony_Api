@@ -40,25 +40,12 @@ class Commande
     #[Groups(['commande:read', 'utilisateur:read'])]
     private Collection $detailCommandes;
 
-    #[Groups(['commande:read', 'utilisateur:read'])]
-    private $userCommande = [];
-
     public function __construct()
     {
 
         $this->dateCommande = new DateTimeImmutable();
         $this->detailCommandes = new ArrayCollection();
 
-    }
-
-    public function getUserCommande(): array
-    {
-        return $this->commandeRepository->executeProcedure(1);
-    }
-
-    public function setUserCommande(array $userCommande): void
-    {
-        $this->userCommande = $userCommande;
     }
 
     public function getDateCommande(): ?DateTimeImmutable
