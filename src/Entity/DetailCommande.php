@@ -5,27 +5,35 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\DetailCommandeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: DetailCommandeRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: [
+        'groups' => ['commandeDetail:read']
+    ],
+    denormalizationContext: [
+        'groups' => ['commandeDetail:write']
+    ]
+)]
 class DetailCommande
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['utilisateur:read', 'commande:read'])]
+    #[Groups(['commandeDetail:read','utilisateur:read', 'commande:read'])]
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['utilisateur:read', 'commande:read'])]
+    #[Groups(['commandeDetail:read','commandeDetail:write','utilisateur:read', 'commande:read', 'produit:readdb'])]
     private ?int $quantite = null;
 
     #[ORM\ManyToOne(inversedBy: 'detailCommandes')]
-    #[Groups(['utilisateur:read', 'commande:read'])]
+    #[Groups(['commandeDetail:read','commandeDetail:write','utilisateur:read', 'commande:read', 'produit:read'])]
     private ?Produit $produit = null;
 
     #[ORM\ManyToOne(inversedBy: 'detailCommandes')]
-    #[Groups(['commande:read'])]
+    #[Groups(['commandeDetail:read','commandeDetail:write','commande:read'])]
     private ?Commande $commande = null;
 
     public function getId(): ?int

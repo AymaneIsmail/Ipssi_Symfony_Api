@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TestProcedureController extends AbstractController
 {
-    #[Route('/test/procedure/{id}', name: 'app_test')]
+    #[Route('/api/commande/user/{id}', name: 'app_test')]
     public function index(Commande $commande,CommandeRepository $commandeRepository): Response
     {
         return new JsonResponse($commandeRepository->executeProcedure($commande->getId()));

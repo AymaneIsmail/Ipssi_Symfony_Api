@@ -4,4 +4,4 @@ symfony console doctrine:database:create  --if-not-exists
 symfony console doctrine:schema:create
 symfony console doctrine:schema:update --force
 symfony console doctrine:migration:migrate --no-interaction
-symfony console doctrine:fixtures:load
+symfony console doctrine:fixtures:load --no-interaction

@@ -23,19 +23,19 @@ class Produit
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['produit:read', 'produit:write', 'utilisateur:read', 'commande:read'])]
+    #[Groups(['produit:read', 'produit:write', 'utilisateur:read', 'commande:read','commandeDetail:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['produit:read', 'produit:write', 'utilisateur:read', 'commande:read'])]
+    #[Groups(['produit:read', 'produit:write', 'utilisateur:read', 'commande:read', 'commandeDetail:read'])]
     private ?string $nomProduit = null;
 
     #[ORM\Column]
-    #[Groups(['produit:read', 'produit:write', 'utilisateur:read', 'commande:read'])]
+    #[Groups(['produit:read', 'produit:write', 'utilisateur:read', 'commande:read', 'commandeDetail:read'])]
     private ?int $prix = null;
 
     #[ORM\Column]
-    #[Groups(['produit:read', 'produit:write', 'utilisateur:read', 'commande:read'])]
+    #[Groups(['produit:read', 'produit:write', 'utilisateur:read', 'commande:read', 'commandeDetail:read'])]
     private ?int $stock = null;
 
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: DetailCommande::class)]
