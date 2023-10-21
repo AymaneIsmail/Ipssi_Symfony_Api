@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Commande;
+use App\Entity\UserCommande;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -45,4 +46,11 @@ class CommandeRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function executeProcedure(int $id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $result = $conn->executeQuery("CALL AfficherUtilisateurCommande({$id})");
+        return $result->fetchAllAssociative();
+    }
 }

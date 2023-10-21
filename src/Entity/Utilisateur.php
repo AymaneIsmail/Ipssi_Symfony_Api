@@ -43,7 +43,7 @@ class Utilisateur
     #[Groups(['utilisateur:read', 'utilisateur:write', 'commande:read'])]
     private ?string $email = null;
 
-    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Commande::class)]
+    #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Commande::class, cascade: ['persist','remove'])]
     #[Groups(['utilisateur:read'])]
     private Collection $commandes;
 
